@@ -1,5 +1,6 @@
 # Echo service example for OneGuard Micro-Service Architecture
 
+[![GitHub license](https://img.shields.io/github/license/OneGuardSolutions/msa-core.svg)](https://github.com/OneGuardSolutions/msa-core/blob/master/LICENSE)
 [![Maintainability](https://api.codeclimate.com/v1/badges/307482e5d00fdc4b5477/maintainability)](https://codeclimate.com/github/OneGuardSolutions/msa-exampe-service-echo/maintainability)
 
 This is an example of service for OneGuard Micro-Service Architecture.
