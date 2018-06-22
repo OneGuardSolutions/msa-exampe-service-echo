@@ -11,6 +11,7 @@ package solutions.oneguard.msa.service.echo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import solutions.oneguard.msa.core.messaging.AbstractMessageHandler;
 import solutions.oneguard.msa.core.messaging.MessageProducer;
 import solutions.oneguard.msa.core.model.Instance;
