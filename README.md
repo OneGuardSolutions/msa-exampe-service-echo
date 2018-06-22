@@ -1,5 +1,7 @@
 # Echo service example for OneGuard Micro-Service Architecture
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/307482e5d00fdc4b5477/maintainability)](https://codeclimate.com/github/OneGuardSolutions/msa-exampe-service-echo/maintainability)
+
 This is an example of service for OneGuard Micro-Service Architecture.
 
 ## Requirements:
