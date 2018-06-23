@@ -1,0 +1,8 @@
+spring:
+  rabbitmq:
+    host: 'localhost'
+
+oneguard:
+  msa:
+    service:
+      name: test

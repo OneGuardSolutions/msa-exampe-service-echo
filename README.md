@@ -16,8 +16,8 @@ This is an example of service for OneGuard Micro-Service Architecture.
 First install [RabbitMQ Server](http://www.rabbitmq.com/download.html).
 For purpose of this example we assume the server is running on local host and default port.
 
-If your environment differs, override the configuration in `src/main/resources/application.yml`.
-See `src/main/resources/application.default.yml` for reference. 
+If your environment differs, override the configuration in `src/main/resources/application-default.yml`.
+See `src/main/resources/application.yml` for reference. 
 
 Clone this repository:
 
