@@ -5,4 +5,4 @@ spring:
 oneguard:
   msa:
     service:
-      name: test
+      name: echo
