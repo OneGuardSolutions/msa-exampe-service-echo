@@ -24,7 +24,7 @@ public class EchoMessageHandler extends AbstractMessageHandler<Object> {
 
     @Autowired
     public EchoMessageHandler(MessageProducer producer, Instance instance) {
-        super("echo.request", Object.class);
+        super(Object.class);
         this.producer = producer;
         this.instance = instance;
     }

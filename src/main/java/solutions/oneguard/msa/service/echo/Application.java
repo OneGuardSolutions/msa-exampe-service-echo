@@ -13,7 +13,10 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+import solutions.oneguard.msa.core.messaging.MessageConsumerConfiguration;
 import solutions.oneguard.msa.core.messaging.MessageProducer;
 import solutions.oneguard.msa.core.model.Instance;
 import solutions.oneguard.msa.core.model.Message;
@@ -22,6 +25,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 @SpringBootApplication
+@Configuration
 public class Application {
     public static void main(String[] args) throws InterruptedException {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(Application.class)
@@ -51,5 +55,11 @@ public class Application {
                 .reference(UUID.randomUUID())
                 .build()
         );
+    }
+
+    @Bean
+    public MessageConsumerConfiguration messageConsumerConfiguration(EchoMessageHandler handler) {
+        return new MessageConsumerConfiguration()
+            .addHandler("echo.request", handler);
     }
 }

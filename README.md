@@ -25,7 +25,7 @@ Clone this repository:
 git clone git@github.com:OneGuardSolutions/msa-exampe-service-echo.git
 ```
 
-Start the app from the clone directory:
+Start the app from the cloned directory:
 
 ```bash
 mvn spring-boot:run
