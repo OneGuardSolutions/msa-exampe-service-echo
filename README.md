@@ -1,7 +1,6 @@
 # Echo service example for OneGuard Micro-Service Architecture
 
-[![Build Status](https://travis-ci.org/OneGuardSolutions/msa-exampe-service-echo.svg?branch=master)]
-(https://travis-ci.org/OneGuardSolutions/msa-exampe-service-echo)
+[![Build Status](https://travis-ci.org/OneGuardSolutions/msa-exampe-service-echo.svg?branch=master)](https://travis-ci.org/OneGuardSolutions/msa-exampe-service-echo)
 [![GitHub license](https://img.shields.io/github/license/OneGuardSolutions/msa-exampe-service-echo.svg)](https://github.com/OneGuardSolutions/msa-exampe-service-echo/blob/master/LICENSE)
 [![Maintainability](https://api.codeclimate.com/v1/badges/307482e5d00fdc4b5477/maintainability)](https://codeclimate.com/github/OneGuardSolutions/msa-exampe-service-echo/maintainability)
 
