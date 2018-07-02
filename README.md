@@ -46,16 +46,16 @@ mvn spring-boot:run
 You should see lines like these at the bottom of the log output:
 
 ```
-2018-07-02 16:37:25.649  INFO 22172 --- [      elastic-3] s.oneguard.msa.service.echo.Application  : Sending request: <{content=Test message #2 sent to service}>
-2018-07-02 16:37:25.649  INFO 22172 --- [      elastic-5] s.oneguard.msa.service.echo.Application  : Sending request: <{content=Test message #4 sent to service}>
-2018-07-02 16:37:25.649  INFO 22172 --- [      elastic-4] s.oneguard.msa.service.echo.Application  : Sending request: <{content=Test message #3 sent to service}>
-2018-07-02 16:37:25.649  INFO 22172 --- [      elastic-2] s.oneguard.msa.service.echo.Application  : Sending request: <{content=Test message #1 sent to service}>
-2018-07-02 16:37:25.649  INFO 22172 --- [      elastic-6] s.oneguard.msa.service.echo.Application  : Sending request: <{content=Test message #5 sent to service}>
-2018-07-02 16:37:25.739  INFO 22172 --- [    container-1] s.oneguard.msa.service.echo.Application  : Received response: <{content=Test message #1 sent to service}>
-2018-07-02 16:37:25.740  INFO 22172 --- [    container-1] s.oneguard.msa.service.echo.Application  : Received response: <{content=Test message #5 sent to service}>
-2018-07-02 16:37:25.741  INFO 22172 --- [    container-1] s.oneguard.msa.service.echo.Application  : Received response: <{content=Test message #4 sent to service}>
-2018-07-02 16:37:25.741  INFO 22172 --- [    container-1] s.oneguard.msa.service.echo.Application  : Received response: <{content=Test message #3 sent to service}>
-2018-07-02 16:37:25.741  INFO 22172 --- [    container-1] s.oneguard.msa.service.echo.Application  : Received response: <{content=Test message #2 sent to service}>
+2018-07-02 16:37:25.649  INFO 22172 --- [  elastic-3] : Sending request: <{content=Test message #2 sent to service}>
+2018-07-02 16:37:25.649  INFO 22172 --- [  elastic-5] : Sending request: <{content=Test message #4 sent to service}>
+2018-07-02 16:37:25.649  INFO 22172 --- [  elastic-4] : Sending request: <{content=Test message #3 sent to service}>
+2018-07-02 16:37:25.649  INFO 22172 --- [  elastic-2] : Sending request: <{content=Test message #1 sent to service}>
+2018-07-02 16:37:25.649  INFO 22172 --- [  elastic-6] : Sending request: <{content=Test message #5 sent to service}>
+2018-07-02 16:37:25.739  INFO 22172 --- [container-1] : Received response: <{content=Test message #1 sent to service}>
+2018-07-02 16:37:25.740  INFO 22172 --- [container-1] : Received response: <{content=Test message #5 sent to service}>
+2018-07-02 16:37:25.741  INFO 22172 --- [container-1] : Received response: <{content=Test message #4 sent to service}>
+2018-07-02 16:37:25.741  INFO 22172 --- [container-1] : Received response: <{content=Test message #3 sent to service}>
+2018-07-02 16:37:25.741  INFO 22172 --- [container-1] : Received response: <{content=Test message #2 sent to service}>
 ``` 
 
 Those are test messages the service sent to itself after the startup.
