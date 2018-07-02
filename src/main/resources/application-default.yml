@@ -1,3 +1,0 @@
-spring:
-  rabbitmq:
-    host: '10.82.60.165'
