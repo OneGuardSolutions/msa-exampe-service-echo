@@ -8,8 +8,8 @@ This is an example of service for OneGuard Micro-Service Architecture.
 
 ## Requirements:
 
-- JDK 9 or above
-- Maven
+- JDK 8 or later
+- Maven 3.2+
 - RabbitMQ server
 
 ## How to run this example
