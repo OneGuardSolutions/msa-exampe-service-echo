@@ -14,34 +14,20 @@ import org.springframework.stereotype.Component;
 
 import solutions.oneguard.msa.core.messaging.AbstractMessageHandler;
 import solutions.oneguard.msa.core.messaging.MessageProducer;
-import solutions.oneguard.msa.core.model.Instance;
 import solutions.oneguard.msa.core.model.Message;
 
 @Component
 public class EchoMessageHandler extends AbstractMessageHandler<Object> {
     private final MessageProducer producer;
-    private final Instance instance;
 
     @Autowired
-    public EchoMessageHandler(MessageProducer producer, Instance instance) {
+    public EchoMessageHandler(MessageProducer producer) {
         super(Object.class);
         this.producer = producer;
-        this.instance = instance;
     }
 
-    public void handleMessage(Object payload, Message originalMessage) {
-        Message response = Message.builder()
-            .type("echo.response")
-            .issuer(instance)
-            .principal(originalMessage.getPrincipal())
-            .payload(payload)
-            .reference(originalMessage.getReference())
-            .build();
-
-        if (originalMessage.isRespondToIssuer()) {
-            producer.sendToInstance(originalMessage.getIssuer(), response);
-        } else {
-            producer.sendToService(originalMessage.getIssuer(), response);
-        }
+    @Override
+    public void handleMessage(Message<Object> originalMessage) {
+        producer.sendResponse(originalMessage, "echo.response", originalMessage.getPayload());
     }
 }

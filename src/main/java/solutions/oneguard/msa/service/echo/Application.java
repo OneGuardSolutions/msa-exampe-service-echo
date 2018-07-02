@@ -9,6 +9,8 @@
 
 package solutions.oneguard.msa.service.echo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -17,44 +19,40 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import solutions.oneguard.msa.core.messaging.MessageConsumerConfiguration;
-import solutions.oneguard.msa.core.messaging.MessageProducer;
+import solutions.oneguard.msa.core.messaging.RequestProducer;
 import solutions.oneguard.msa.core.model.Instance;
 import solutions.oneguard.msa.core.model.Message;
 
 import java.util.Collections;
-import java.util.UUID;
 
 @SpringBootApplication
 @Configuration
 public class Application {
+    private static final Logger log = LoggerFactory.getLogger(Application.class);
+
     public static void main(String[] args) throws InterruptedException {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(Application.class)
             .web(WebApplicationType.NONE)
             .run(args);
 
         Instance instance = context.getBean(Instance.class);
-        MessageProducer producer = context.getBean(MessageProducer.class);
+        RequestProducer producer = context.getBean(RequestProducer.class);
 
-        producer.sendToService(
-            instance,
-            Message.builder()
+        producer.request(Object.class, instance.getService(), Message.builder()
                 .type("echo.request")
-                .issuer(instance)
-                .payload(Collections.singletonMap("content", "Test message sent to service"))
-                .reference(UUID.randomUUID())
-                .respondToIssuer(true)
+                .payload(Collections.singletonMap("content", "Test message #1 sent to service"))
                 .build()
-        );
+            )
+            .doOnNext(response -> log.info("Received response: <{}>", response.getPayload()))
+            .subscribe();
         Thread.sleep(1000);
-        producer.sendToInstance(
-            instance,
-            Message.builder()
+        producer.request(Object.class, instance.getService(), Message.builder()
                 .type("echo.request")
-                .issuer(instance)
-                .payload(Collections.singletonMap("content", "Test message sent to instance"))
-                .reference(UUID.randomUUID())
+                .payload(Collections.singletonMap("content", "Test message #2 sent to service"))
                 .build()
-        );
+            )
+            .doOnNext(response -> log.info("Received response: <{}>", response.getPayload()))
+            .subscribe();
     }
 
     @Bean
