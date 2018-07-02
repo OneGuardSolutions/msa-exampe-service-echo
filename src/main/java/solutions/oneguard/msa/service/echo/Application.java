@@ -17,6 +17,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import reactor.core.scheduler.Schedulers;
 
 import solutions.oneguard.msa.core.messaging.MessageConsumerConfiguration;
 import solutions.oneguard.msa.core.messaging.RequestProducer;
@@ -28,9 +29,16 @@ import java.util.Collections;
 @SpringBootApplication
 @Configuration
 public class Application {
+    private static final String ECHO_REQUEST_TYPE = "echo.request";
+
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-    public static void main(String[] args) throws InterruptedException {
+    /**
+     * Starts the application.
+     *
+     * @param args application arguments
+     */
+    public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(Application.class)
             .web(WebApplicationType.NONE)
             .run(args);
@@ -38,26 +46,25 @@ public class Application {
         Instance instance = context.getBean(Instance.class);
         RequestProducer producer = context.getBean(RequestProducer.class);
 
-        producer.request(Object.class, instance.getService(), Message.builder()
-                .type("echo.request")
-                .payload(Collections.singletonMap("content", "Test message #1 sent to service"))
-                .build()
-            )
-            .doOnNext(response -> log.info("Received response: <{}>", response.getPayload()))
-            .subscribe();
-        Thread.sleep(1000);
-        producer.request(Object.class, instance.getService(), Message.builder()
-                .type("echo.request")
-                .payload(Collections.singletonMap("content", "Test message #2 sent to service"))
-                .build()
-            )
-            .doOnNext(response -> log.info("Received response: <{}>", response.getPayload()))
-            .subscribe();
+        for (int i = 1; i <= 5; i++) {
+            Object payload = Collections.singletonMap("content", String.format("Test message #%d sent to service", i));
+            producer.request(
+                Object.class,
+                instance.getService(),
+                Message.builder()
+                    .type(ECHO_REQUEST_TYPE)
+                    .payload(payload)
+                    .build()
+                )
+                .doOnSubscribe(subscription -> log.info("Sending request: <{}>", payload))
+                .subscribeOn(Schedulers.elastic())
+                .subscribe(response -> log.info("Received response: <{}>", response.getPayload()));
+        }
     }
 
     @Bean
     public MessageConsumerConfiguration messageConsumerConfiguration(EchoMessageHandler handler) {
         return new MessageConsumerConfiguration()
-            .addHandler("echo.request", handler);
+            .addHandler(ECHO_REQUEST_TYPE, handler);
     }
 }
